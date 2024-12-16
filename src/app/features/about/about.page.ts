@@ -1,0 +1,90 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-about',
+  template: `
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>About MangaMichi</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>MangaMichi</ion-card-title>
+          <ion-card-subtitle>Version {{ appVersion }}</ion-card-subtitle>
+        </ion-card-header>
+        
+        <ion-card-content>
+          <p>
+            MangaMichi is your personal manga collection manager. Keep track of your
+            manga library, discover new titles, and find nearby manga stores!
+          </p>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-list>
+        <ion-list-header>
+          <ion-label>Features</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-icon name="library" slot="start"></ion-icon>
+          <ion-label>
+            <h2>Personal Library</h2>
+            <p>Track your manga collection</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="search" slot="start"></ion-icon>
+          <ion-label>
+            <h2>Manga Search</h2>
+            <p>Discover new titles</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="location" slot="start"></ion-icon>
+          <ion-label>
+            <h2>Store Locator</h2>
+            <p>Find manga stores near you</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
+      <ion-list>
+        <ion-list-header>
+          <ion-label>Credits</ion-label>
+        </ion-list-header>
+
+        <ion-item href="https://api.mangadex.org" target="_blank">
+          <ion-icon name="book" slot="start"></ion-icon>
+          <ion-label>
+            <h2>MangaDex API</h2>
+            <p>Manga data provider</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item href="https://maps.google.com" target="_blank">
+          <ion-icon name="map" slot="start"></ion-icon>
+          <ion-label>
+            <h2>Google Maps</h2>
+            <p>Store location services</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
+      <div class="ion-padding-top ion-text-center">
+        <p>© 2024 MangaMichi. All rights reserved.</p>
+      </div>
+    </ion-content>
+  `
+})
+export class AboutPage {
+  appVersion = '1.0.0';
+}
