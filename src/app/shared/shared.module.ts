@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 
@@ -14,12 +14,13 @@ import { DistancePipe } from './pipes/distance.pipe';
   declarations: [
     LoadingSpinnerComponent,
     ErrorMessageComponent,
-    DistancePipe
+    DistancePipe,
   ],
   exports: [
     LoadingSpinnerComponent,
     ErrorMessageComponent,
-    DistancePipe
-  ]
+    DistancePipe,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule {} 

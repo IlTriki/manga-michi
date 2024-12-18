@@ -13,9 +13,15 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AuthService } from './core/services/auth.service';
+import { TabsLayoutComponent } from './shared/components/tabs-layout.component';
+import { MenuLayoutComponent } from './shared/components/menu-layout.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    TabsLayoutComponent,
+    MenuLayoutComponent
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

@@ -31,7 +31,21 @@
  * For more info, please see:
  * https://ionicframework.com/docs/theming/dark-mode
  */
-
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+ 
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+ion-tab-bar {
+  --background: var(--ion-color-light);
+  border-top: 1px solid var(--ion-color-light-shade);
+}
+
+ion-tab-button {
+  --color: var(--ion-color-medium);
+  --color-selected: var(--ion-color-primary);
+}
+
+@media (min-width: 768px) {
+  ion-tab-bar {
+    display: none;
+  }
+}

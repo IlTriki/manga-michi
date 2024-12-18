@@ -13,6 +13,11 @@ import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'search',
+    pathMatch: 'full'
+  },
+  {
     path: 'search',
     component: MangaSearchPage
   },

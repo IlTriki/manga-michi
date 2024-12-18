@@ -5,7 +5,7 @@ import { Store } from '../../models/store.interface';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AuthService } from './auth.service';
 
-declare var google: any;
+declare const google: any;
 
 @Injectable({
   providedIn: 'root'
@@ -79,8 +79,6 @@ export class StoreLocatorService {
             );
             
             const distanceInKm = Math.round((distanceInMeters / 1000) * 10) / 10;
-
-            console.log(place.opening_hours);
 
             return {
               id: place.place_id,
