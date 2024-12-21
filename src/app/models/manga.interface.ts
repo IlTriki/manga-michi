@@ -7,4 +7,5 @@ export interface Manga {
     status: string;
     year?: number;
     tags: string[];
+    lastChapter?: string;
 }

@@ -32,7 +32,11 @@
       </ion-row>
     </ion-grid>
 
-    <div *ngIf="!isLoading && searchResults.length === 0" class="ion-padding ion-text-center">
+    <div *ngIf="!isLoading && searchResults.length === 0 && searchQuery.length > 0" class="ion-padding ion-text-center">
       <p>No results found. Try a different search term.</p>
+    </div>
+
+    <div *ngIf="!isLoading && searchQuery.length === 0" class="ion-padding ion-text-center">
+      <p>Get started by searching for any manga! For example, you can search for "Fullmetal Alchemist" or "Love is War".</p>
     </div>
 </ion-content>

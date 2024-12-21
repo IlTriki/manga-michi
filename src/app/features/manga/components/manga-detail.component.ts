@@ -32,12 +32,32 @@ import { BehaviorSubject, switchMap } from 'rxjs';
           <p>{{ manga.description }}</p>
           
           <ion-list>
-            <ion-item>
-              <ion-label>
-                <h2>Status</h2>
-                <p>{{ manga.status }}</p>
-              </ion-label>
-            </ion-item>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label>
+                    <h2>Year</h2>
+                    <p>{{ manga.year || 'Unknown' }}</p>
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-label>
+                    <h2>Chapters</h2>
+                    <p>{{ manga.lastChapter || 'Unknown' }}</p>
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-label>
+                    <h2>Status</h2>
+                    <p>{{ manga.status }}</p>
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
             <ion-item>
               <ion-label>
                 <h2>Tags</h2>
@@ -129,6 +149,12 @@ export class MangaDetailComponent {
     try {
       await this.mangaService.removeFromLibrary(this.manga.id);
       this.refreshTrigger.next();
+      const toast = await this.toastCtrl.create({
+        message: 'Removed from your library',
+        duration: 2000,
+        color: 'success'
+      });
+      await toast.present();
       await this.modalCtrl.dismiss({ action: 'removed' });
     } catch (error) {
       const toast = await this.toastCtrl.create({

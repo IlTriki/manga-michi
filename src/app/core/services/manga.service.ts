@@ -17,6 +17,20 @@ export class MangaService {
     @Inject('AUTH_SERVICE') private auth: AuthService
   ) {}
 
+  getMangaFromAttributes(manga: any, coverFile: string, authors: string[]): Manga {
+    return {
+      id: manga.id,
+      title: manga.attributes.title.en || Object.values(manga.attributes.title)[0],
+      description: manga.attributes.description.en || Object.values(manga.attributes.description)[0],
+      coverImage: coverFile ? `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}` : '',
+      authors: authors,
+      status: manga.attributes.status,
+      year: manga.attributes.year,
+      tags: manga.attributes.tags.map(tag => tag.attributes.name.en),
+      lastChapter: manga.attributes.lastChapter
+    };
+  }
+
   async searchManga(query: string): Promise<Manga[]> {
     let params = new HttpParams()
       .set('title', query)
@@ -37,16 +51,7 @@ export class MangaService {
         .map(rel => rel.attributes?.name)
         .filter(Boolean);
 
-      return {
-        id: manga.id,
-        title: manga.attributes.title.en || Object.values(manga.attributes.title)[0],
-        description: manga.attributes.description.en || Object.values(manga.attributes.description)[0],
-        coverImage: coverFile ? `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}` : '',
-        authors: authors,
-        status: manga.attributes.status,
-        year: manga.attributes.year,
-        tags: manga.attributes.tags.map(tag => tag.attributes.name.en)
-      };
+      return this.getMangaFromAttributes(manga, coverFile, authors);
     });
 
     return data || [];
@@ -69,16 +74,7 @@ export class MangaService {
       .map(rel => rel.attributes?.name)
       .filter(Boolean);
 
-    return {
-      id: manga.id,
-      title: manga.attributes.title.en || Object.values(manga.attributes.title)[0],
-      description: manga.attributes.description.en || Object.values(manga.attributes.description)[0],
-      coverImage: coverFile ? `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}` : '',
-      authors: authors,
-      status: manga.attributes.status,
-      year: manga.attributes.year,
-      tags: manga.attributes.tags.map(tag => tag.attributes.name.en)
-    };
+    return this.getMangaFromAttributes(manga, coverFile, authors);
   }
 
   getUserLibrary(): Observable<Manga[]> {
