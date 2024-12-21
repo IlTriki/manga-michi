@@ -1,0 +1,33 @@
+.profile-avatar {
+  width: 128px;
+  height: 128px;
+  margin: 20px auto;
+  position: relative;
+  cursor: pointer;
+
+  .avatar-overlay {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: rgba(0,0,0,0.6);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ion-icon {
+      color: white;
+      font-size: 20px;
+    }
+  }
+}
+
+ion-list {
+  margin-top: 20px;
+}
+
+form {
+  margin-bottom: 20px;
+} 

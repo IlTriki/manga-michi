@@ -1,0 +1,86 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/home"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Sign Up</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <ion-item class="ion-margin-bottom">
+            <ion-label position="floating">Username</ion-label>
+            <ion-input type="text" formControlName="displayName"></ion-input>
+        </ion-item>
+        <ion-note *ngIf="displayName?.touched && displayName?.invalid">
+            <div *ngIf="displayName?.errors?.['required']">Username is required</div>
+            <div *ngIf="displayName?.errors?.['minlength']">Username must be at least 3 characters</div>
+        </ion-note>
+
+        <ion-item class="ion-margin-bottom">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-note *ngIf="email?.touched && email?.invalid">
+            <div *ngIf="email?.errors?.['required']">Email is required</div>
+            <div *ngIf="email?.errors?.['email']">Please enter a valid email address</div>
+        </ion-note>
+
+        <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+        <ion-note *ngIf="password?.touched && password?.invalid">
+            <div *ngIf="password?.errors?.['required']">Password is required</div>
+            <div *ngIf="password?.errors?.['pattern']" class="requirements-list ion-padding-top">
+                <p class="requirements-title">Password must contain at least:</p>
+                <ion-list lines="none">
+                    <ion-item>
+                        <ion-icon [name]="checkLength(password) ? 'checkmark-circle' : 'close-circle'" 
+                                    [color]="checkLength(password) ? 'success' : 'medium'">
+                        </ion-icon>
+                        <ion-label class="ion-padding-start">8 characters</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon [name]="checkUpperCase(password) ? 'checkmark-circle' : 'close-circle'"
+                                    [color]="checkUpperCase(password) ? 'success' : 'medium'">
+                        </ion-icon>
+                        <ion-label class="ion-padding-start">One uppercase letter</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon [name]="checkLowerCase(password) ? 'checkmark-circle' : 'close-circle'"
+                                    [color]="checkLowerCase(password) ? 'success' : 'medium'">
+                        </ion-icon>
+                        <ion-label class="ion-padding-start">One lowercase letter</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon [name]="checkTwoNumbers(password) ? 'checkmark-circle' : 'close-circle'"
+                                    [color]="checkTwoNumbers(password) ? 'success' : 'medium'">
+                        </ion-icon>
+                        <ion-label class="ion-padding-start">Two numbers</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon [name]="checkSpecialChar(password) ? 'checkmark-circle' : 'close-circle'"
+                                    [color]="checkSpecialChar(password) ? 'success' : 'medium'">
+                        </ion-icon>
+                        <ion-label class="ion-padding-start">One special character (!&#64;#$%^&*.)</ion-label>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </ion-note>
+
+        <div class="error-message" *ngIf="authError">
+        {{ authError }}
+        </div>
+
+        <ion-button expand="block" type="submit" [disabled]="signupForm.invalid" class="ion-margin-top">
+        Sign Up
+        </ion-button>
+
+        <div class="ion-text-center ion-margin-top">
+        <ion-text>Already have an account?</ion-text>
+        <ion-button fill="clear" routerLink="/login">Login</ion-button>
+        </div>
+    </form>
+</ion-content>

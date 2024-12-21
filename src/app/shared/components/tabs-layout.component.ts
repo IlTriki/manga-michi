@@ -10,11 +10,6 @@ import { Component } from '@angular/core';
           <ion-label>Home</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button routerLink="/manga/search" routerLinkActive="tab-selected">
-          <ion-icon name="search"></ion-icon>
-          <ion-label>Search</ion-label>
-        </ion-tab-button>
-
         <ion-tab-button routerLink="/manga/library" routerLinkActive="tab-selected">
           <ion-icon name="library"></ion-icon>
           <ion-label>Library</ion-label>
@@ -28,11 +23,6 @@ import { Component } from '@angular/core';
         <ion-tab-button routerLink="/profile" routerLinkActive="tab-selected">
           <ion-icon name="person"></ion-icon>
           <ion-label>Profile</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button routerLink="/about" routerLinkActive="tab-selected">
-          <ion-icon name="information-circle"></ion-icon>
-          <ion-label>About</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>

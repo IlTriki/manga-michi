@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Login</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <ion-item class="ion-margin-bottom">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-note *ngIf="email?.touched && email?.invalid">
+            <div *ngIf="email?.errors?.['required']">Email is required</div>
+        </ion-note>
+
+        <ion-item class="ion-margin-bottom">
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+        <ion-note *ngIf="password?.touched && password?.invalid">
+            <div *ngIf="password?.errors?.['required']">Password is required</div>
+        </ion-note>
+
+        <div class="error-message" *ngIf="authError">
+            {{ authError }}
+        </div>
+
+        <ion-button expand="block" type="submit" [disabled]="loginForm.invalid" class="ion-margin-top">
+            Login
+        </ion-button>
+
+        <div class="ion-text-center ion-margin-top">
+            <ion-text>Don't have an account?</ion-text>
+            <ion-button fill="clear" routerLink="/signup">Sign up</ion-button>
+        </div>
+    </form>
+</ion-content>

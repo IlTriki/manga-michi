@@ -4,61 +4,102 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>MangaMichi</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showSearch = !showSearch">
+        <ion-icon name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="showSearch">
+    <ion-searchbar
+      [(ngModel)]="searchQuery"
+      (ionInput)="handleSearch($event)"
+      [debounce]="500"
+      placeholder="Search for manga...">
+    </ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="ion-padding">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Welcome to MangaMichi</ion-card-title>
-        <ion-card-subtitle>Your Personal Manga Library</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Track your manga collection, discover new titles, and find nearby manga stores!</p>
-      </ion-card-content>
-    </ion-card>
+<ion-content class="ion-padding">
+  <ng-container *ngIf="!showSearch || searchResults.length === 0">
+    <div class="welcome-container">
+      <ion-card>
+        <ion-card-header>
+          <h1>
+            <ion-card-title>Welcome to MangaMichi</ion-card-title>
+            <ion-card-subtitle>Your Personal Manga Library</ion-card-subtitle>
+          </h1>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Track your manga collection, discover new titles, and find nearby manga stores!</p>
+        </ion-card-content>
+      </ion-card>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" *ngIf="!(auth.user$ | async)">
+            <ion-button expand="block" routerLink="/login">
+              <ion-icon slot="start" name="log-in"></ion-icon>
+              Login
+            </ion-button>
+          </ion-col>
+          <ion-col size="6" *ngIf="!(auth.user$ | async)">
+            <ion-button expand="block" routerLink="/signup">
+              <ion-icon slot="start" name="person-add"></ion-icon>
+              Sign Up
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            <ion-button expand="block" routerLink="/manga/library" *ngIf="auth.user$ | async">
+              <ion-icon slot="start" name="library"></ion-icon>
+              My Library
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button expand="block" routerLink="/stores" *ngIf="auth.user$ | async">
+              <ion-icon slot="start" name="location"></ion-icon>
+              Find Stores
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            <ion-button expand="block" routerLink="/profile" *ngIf="auth.user$ | async">
+              <ion-icon slot="start" name="person"></ion-icon>
+              Profile
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button expand="block" routerLink="/about">
+              <ion-icon slot="start" name="information-circle"></ion-icon>
+              About
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ng-container>
 
-    <ion-grid>
+  <ng-container *ngIf="showSearch">
+    <div *ngIf="isLoading" class="ion-padding ion-text-center">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+
+    <ion-grid *ngIf="searchResults.length > 0">
       <ion-row>
-        <ion-col size="6">
-          <ion-button expand="block" routerLink="/manga/search">
-            <ion-icon slot="start" name="search"></ion-icon>
-            Search Manga
-          </ion-button>
-        </ion-col>
-        <ion-col size="6">
-          <ion-button expand="block" routerLink="/manga/library" *ngIf="auth.user$ | async">
-            <ion-icon slot="start" name="library"></ion-icon>
-            My Library
-          </ion-button>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="6">
-          <ion-button expand="block" routerLink="/stores" *ngIf="auth.user$ | async">
-            <ion-icon slot="start" name="location"></ion-icon>
-            Find Stores
-          </ion-button>
-        </ion-col>
-        <ion-col size="6">
-          <ion-button expand="block" routerLink="/profile" *ngIf="auth.user$ | async">
-            <ion-icon slot="start" name="person"></ion-icon>
-            Profile
-          </ion-button>
+        <ion-col size="12" size-md="6" *ngFor="let manga of searchResults">
+          <app-manga-card
+            [manga]="manga"
+            (viewDetails)="openDetails($event)"
+            (addToLibrary)="addToLibrary($event)">
+          </app-manga-card>
         </ion-col>
       </ion-row>
     </ion-grid>
 
-    <div class="auth-buttons" *ngIf="!(auth.user$ | async)">
-      <ion-button expand="block" (click)="loginUser()">
-        <ion-icon slot="start" name="log-in"></ion-icon>
-        Login
-      </ion-button>
-      <ion-button expand="block" fill="outline" (click)="signupUser()">
-        <ion-icon slot="start" name="person-add"></ion-icon>
-        Sign Up
-      </ion-button>
+    <div *ngIf="!isLoading && searchResults.length === 0 && searchQuery" class="ion-padding ion-text-center">
+      <p>No results found. Try a different search term.</p>
     </div>
-  </div>
+  </ng-container>
 </ion-content>

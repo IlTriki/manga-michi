@@ -5,11 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 
-import { MangaSearchPage } from './pages/manga-search.page';
-import { MangaLibraryPage } from './pages/manga-library.page';
-import { MangaCardComponent } from './components/manga-card.component';
+import { MangaLibraryPage } from './pages/library/manga-library.page';
 import { MangaDetailComponent } from './components/manga-detail.component';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
+import { MangaSearchPage } from './pages/search/manga-search.page';
 
 const routes: Routes = [
   {
@@ -39,7 +38,6 @@ const routes: Routes = [
   declarations: [
     MangaSearchPage,
     MangaLibraryPage,
-    MangaCardComponent,
     MangaDetailComponent
   ]
 })

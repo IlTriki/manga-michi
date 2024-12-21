@@ -28,6 +28,10 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('./features/profile/profile.module').then(m => m.ProfileModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: '',
+    loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)
   }
 ];
 

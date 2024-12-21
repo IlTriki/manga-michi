@@ -1,0 +1,29 @@
+.welcome-container {
+  padding: 20px;
+
+  ion-card {
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    margin: 0;
+    
+    ion-card-title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    ion-card-subtitle {
+      margin-top: 5px;
+    }
+  }
+
+  p {
+    color: var(--ion-color-medium);
+    margin: 10px 0;
+  }
+}
+
+ion-button {
+  margin: 5px 0;
+}

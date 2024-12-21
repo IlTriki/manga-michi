@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Search Manga</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-searchbar
+        [(ngModel)]="searchQuery"
+        (ionInput)="handleSearch($event)"
+        [debounce]="500"
+        placeholder="Search for manga...">
+      </ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="isLoading" class="ion-padding ion-text-center">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="6" *ngFor="let manga of searchResults">
+          <app-manga-card
+            [manga]="manga"
+            (viewDetails)="openDetails($event)"
+            (addToLibrary)="addToLibrary($event)">
+          </app-manga-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <div *ngIf="!isLoading && searchResults.length === 0" class="ion-padding ion-text-center">
+      <p>No results found. Try a different search term.</p>
+    </div>
+</ion-content>

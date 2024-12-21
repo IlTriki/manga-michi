@@ -1,0 +1,70 @@
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+ion-item {
+  --background: transparent;
+  --border-color: var(--ion-color-medium);
+  --highlight-height: 1px;
+  margin-bottom: 4px;
+  
+  &.ion-invalid.ion-touched {
+    --highlight-color: var(--ion-color-danger);
+  }
+
+  &.ion-valid.ion-touched {
+    --highlight-color: var(--ion-color-success);
+  }
+}
+
+ion-note {
+  color: var(--ion-color-danger);
+  font-size: 0.75em;
+  margin: 4px 0 16px 16px;
+  display: block;
+}
+
+.requirements-list {
+  margin: 16px 0;
+  
+  .requirements-title {
+    color: var(--ion-color-medium);
+    font-size: 0.85em;
+    margin-bottom: 8px;
+    padding-left: 16px;
+  }
+  
+  ion-item {
+    --min-height: 32px;
+    font-size: 0.85em;
+    margin-bottom: 0;
+    
+    ion-icon {
+      font-size: 1.2em;
+      margin-right: 8px;
+    }
+  }
+}
+
+.error-message {
+  color: var(--ion-color-danger);
+  text-align: center;
+  font-size: 0.85em;
+  margin: 16px 0;
+}
+
+.ion-text-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  ion-button {
+    --padding-start: 4px;
+    --padding-end: 4px;
+    height: auto;
+    margin: 0;
+  }
+}

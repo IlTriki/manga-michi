@@ -1,37 +1,29 @@
 import { Component, ViewChildren, QueryList } from '@angular/core';
-import { AuthService } from '../../core/services/auth.service';
-import { MangaService } from '../../core/services/manga.service';
-import { Router } from '@angular/router';
-import { MangaDetailComponent } from '../manga/components/manga-detail.component';
-import { Manga } from 'src/app/models/manga.interface';
+import { MangaService } from '../../../../core/services/manga.service';
+import { Manga } from '../../../../models/manga.interface';
 import { ModalController } from '@ionic/angular';
-import { MangaCardComponent } from '../manga/components/manga-card.component';
+import { MangaDetailComponent } from '../../components/manga-detail.component';
+import { MangaCardComponent } from '../../components/manga-card.component';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss']
+  selector: 'app-manga-search',
+  templateUrl: './manga-search.page.html',
+  styleUrls: ['./manga-search.page.scss'],
 })
-export class HomePage {
-  showSearch = false;
+export class MangaSearchPage {
   searchQuery = '';
-  searchResults: any[] = [];
+  searchResults: Manga[] = [];
   isLoading = false;
   @ViewChildren(MangaCardComponent) mangaCards!: QueryList<MangaCardComponent>;
 
   constructor(
-    public auth: AuthService,
     private mangaService: MangaService,
-    private modalCtrl: ModalController,
-    private router: Router
+    private modalCtrl: ModalController
   ) {}
 
   async handleSearch(event: any) {
     const query = event.target.value.toLowerCase();
-    if (query.length < 3) {
-      this.searchResults = [];
-      return;
-    }
+    if (query.length < 3) return;
 
     this.isLoading = true;
     try {
