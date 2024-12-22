@@ -5,22 +5,26 @@ import { Store } from '../../../models/store.interface';
   selector: 'app-store-card',
   template: `
     <ion-card>
+      <!-- Store header with name and address -->
       <ion-card-header>
         <ion-card-title>{{ store.name }}</ion-card-title>
         <ion-card-subtitle>{{ store.address }}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
+        <!-- Display opening hours if available -->
         <div *ngIf="store.openingHours?.length">
           <p><strong>Opening Hours:</strong></p>
           <p *ngFor="let hours of store.openingHours">{{ hours }}</p>
         </div>
         <ion-row class="ion-align-items-end">
+          <!-- Store rating display -->
           <ion-col size="6">
             <div *ngIf="store.rating" class="rating">
               <ion-icon name="star" color="warning"></ion-icon>
               <span>{{ store.rating }} / 5</span>
             </div>
           </ion-col>
+          <!-- Distance from user's location -->
           <ion-col size="6" class="ion-text-end">
             <p class="distance-text">{{ store.distance }} km away</p>
           </ion-col>

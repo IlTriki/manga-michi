@@ -3,6 +3,10 @@ import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { map, take } from 'rxjs/operators';
 
+/**
+ * Guard to prevent unauthorized access to routes
+ * Checks if the user is authenticated before allowing access
+ */
 @Injectable({
   providedIn: 'root'
 })

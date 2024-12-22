@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, firstValueFrom } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import { User } from '../../models/user.interface';
 
@@ -11,6 +11,7 @@ import { User } from '../../models/user.interface';
   providedIn: 'root'
 })
 export class AuthService {
+  // Observable of the current user's state
   user$: Observable<User | null>;
 
   constructor(
@@ -19,8 +20,10 @@ export class AuthService {
     private storage: AngularFireStorage,
     private router: Router
   ) {
+    // Initialize user observable with Firebase auth state
     this.user$ = this.auth.authState.pipe(
       map(user => user ?? null),
+      // Merge auth state with additional user data from Firestore
       switchMap(user => {
         if (user) {
           return this.firestore.doc<User>(`users/${user.uid}`).valueChanges().pipe(
@@ -45,13 +48,15 @@ export class AuthService {
 
   async signup(email: string, password: string, displayName: string) {
     try {
+      // Create new user account with Firebase Auth
       const credential = await this.auth.createUserWithEmailAndPassword(email, password);
       if (credential.user) {
+        // Create additional user profile in Firestore
         await this.createUserProfile(credential.user.uid, {
           uid: credential.user.uid,
           email: credential.user.email!,
           displayName,
-          mangaLibrary: []
+          mangaLibrary: [] // Initialize empty manga library
         });
       }
       await this.router.navigate(['/home']);
@@ -76,7 +81,7 @@ export class AuthService {
       const path = `users/${user.uid}/profile.${photoFile.name.split('.').pop()}`;
       const ref = this.storage.ref(path);
       await ref.put(photoFile);
-      photoURL = await ref.getDownloadURL().toPromise();
+      photoURL = await firstValueFrom(ref.getDownloadURL());
     }
 
     if (profileData.displayName || photoURL) {

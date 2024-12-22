@@ -20,6 +20,7 @@ export class SignupPage {
     this.signupForm = this.fb.group({
       displayName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
+      // regex to validate password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, two numbers, and one special character
       password: ['', [
         Validators.required,
         Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/)
@@ -43,6 +44,10 @@ export class SignupPage {
     return this.signupForm.get('password');
   }
 
+  /**
+   * Handles the signup form submission
+   * Validates the form and attempts to create a new user account
+   */
   async onSubmit() {
     if (this.signupForm.valid) {
       try {

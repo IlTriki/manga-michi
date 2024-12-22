@@ -26,6 +26,10 @@ export class HomePage {
     private router: Router
   ) {}
 
+  /**
+   * Handles the search input event
+   * Filters the search results based on the input query
+   */
   async handleSearch(event: any) {
     const query = event.target.value.toLowerCase();
     if (query.length < 3) {

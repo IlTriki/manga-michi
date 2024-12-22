@@ -1,5 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+/**
+ * Pipe to format distance values into a human-readable format
+ * Converts meters to kilometers if the distance is greater than 1000 meters
+ */
 @Pipe({
   name: 'distance'
 })

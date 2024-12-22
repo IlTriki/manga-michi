@@ -31,6 +31,10 @@ export class LoginPage {
     return this.loginForm.get('password');
   }
 
+  /**
+   * Handles the login form submission
+   * Validates the form and attempts to log in the user
+   */
   async onSubmit() {
     if (this.loginForm.valid) {
       try {

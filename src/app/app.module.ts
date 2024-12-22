@@ -22,6 +22,10 @@ import { MenuLayoutComponent } from './shared/components/menu-layout.component';
     TabsLayoutComponent,
     MenuLayoutComponent
   ],
+  /**
+   * Imports the necessary modules for the application
+   * Includes AngularFire for Firebase integration
+   */
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -31,6 +35,10 @@ import { MenuLayoutComponent } from './shared/components/menu-layout.component';
     AngularFireAuthModule,
     AngularFireStorageModule
   ],
+  /**
+   * Providers for services and strategies
+   * Includes AngularFire for Firebase integration
+   */
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: 'AUTH_SERVICE', useExisting: AuthService },

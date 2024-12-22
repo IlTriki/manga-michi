@@ -17,21 +17,33 @@ export class MangaService {
     @Inject('AUTH_SERVICE') private auth: AuthService
   ) {}
 
+  /**
+   * Transforms raw manga data from MangaDex API into our app's format
+   * Handles multilingual content and optional fields
+   */
   getMangaFromAttributes(manga: any, coverFile: string, authors: string[]): Manga {
     return {
       id: manga.id,
+      // Use English title if available, fallback to first available language
       title: manga.attributes.title.en || Object.values(manga.attributes.title)[0],
       description: manga.attributes.description.en || Object.values(manga.attributes.description)[0],
+      // Construct full cover image URL if cover file exists
       coverImage: coverFile ? `https://uploads.mangadex.org/covers/${manga.id}/${coverFile}` : '',
       authors: authors,
       status: manga.attributes.status,
       year: manga.attributes.year,
+      // Extract English tag names from the tags array
       tags: manga.attributes.tags.map(tag => tag.attributes.name.en),
       lastChapter: manga.attributes.lastChapter
     };
   }
 
+  /**
+   * Searches for manga using the MangaDex API
+   * Includes cover art and author information in the response
+   */
   async searchManga(query: string): Promise<Manga[]> {
+    // Configure API query parameters
     let params = new HttpParams()
       .set('title', query)
       .set('limit', '20')
@@ -57,6 +69,10 @@ export class MangaService {
     return data || [];
   }
 
+  /**
+   * Fetches detailed manga information from MangaDex API
+   * Includes cover art, authors, and artists in the response
+   */
   async getMangaDetails(id: string): Promise<Manga> {
     let params = new HttpParams()
     .append('includes[]', 'cover_art')
@@ -77,6 +93,10 @@ export class MangaService {
     return this.getMangaFromAttributes(manga, coverFile, authors);
   }
 
+  /**
+   * Fetches the user's manga library from Firestore
+   * Returns an Observable of Manga[]
+   */
   getUserLibrary(): Observable<Manga[]> {
     return this.auth.user$.pipe(
       switchMap(user => {
@@ -93,6 +113,10 @@ export class MangaService {
     );
   }
 
+  /**
+   * Adds a manga to the user's library in Firestore
+   * Handles user authentication and error handling
+   */
   async addToLibrary(manga: Manga): Promise<void> {
     const user = await firstValueFrom(this.auth.user$);
     if (!user) throw new Error('User not authenticated');
@@ -105,6 +129,10 @@ export class MangaService {
       .set(manga);
   }
 
+  /**
+   * Removes a manga from the user's library in Firestore
+   * Handles user authentication and error handling
+   */
   async removeFromLibrary(mangaId: string): Promise<void> {
     const user = await firstValueFrom(this.auth.user$);
     if (!user) throw new Error('User not authenticated');
@@ -117,6 +145,10 @@ export class MangaService {
       .delete();
   }
 
+  /**
+   * Checks if a manga is in the user's library
+   * Returns an Observable of boolean
+   */
   isInLibrary(mangaId: string): Observable<boolean> {
     return from(
       firstValueFrom(this.auth.user$).then(user => {

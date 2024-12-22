@@ -27,6 +27,10 @@ export class AppComponent implements OnInit {
     this.loadGoogleMapsScript();
   }
 
+  /**
+   * Loads the Google Maps JavaScript API script
+   * This is necessary for the stores page to function
+   */
   private loadGoogleMapsScript() {
     const script = document.createElement('script');
     script.src = `https://maps.googleapis.com/maps/api/js?key=${environment.googleMapsApiKey}&libraries=places,geometry&loading=async`;

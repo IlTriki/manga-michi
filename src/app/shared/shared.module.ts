@@ -8,6 +8,9 @@ import { ErrorMessageComponent } from './components/error-message.component';
 import { DistancePipe } from './pipes/distance.pipe';
 import { MangaCardComponent } from '../features/manga/components/manga-card.component';
 
+/**
+ * Shared module for components, pipes, and directives
+ */
 @NgModule({
   imports: [
     CommonModule,
