@@ -28,7 +28,7 @@ export class SignupPage {
   }
 
   get password() {
-    return this.signupForm.get('password')?.value;
+    return this.signupForm.get('password');
   }
 
   get displayName() {

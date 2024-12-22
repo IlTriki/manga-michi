@@ -28,47 +28,44 @@
         </ion-note>
 
         <ion-item>
-        <ion-label position="floating">Password</ion-label>
-        <ion-input type="password" formControlName="password"></ion-input>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
         </ion-item>
-        <ion-note *ngIf="password?.touched && password?.invalid">
-            <div *ngIf="password?.errors?.['required']">Password is required</div>
-            <div *ngIf="password?.errors?.['pattern']" class="requirements-list ion-padding-top">
-                <p class="requirements-title">Password must contain at least:</p>
-                <ion-list lines="none">
-                    <ion-item>
-                        <ion-icon [name]="checkLength(password) ? 'checkmark-circle' : 'close-circle'" 
-                                    [color]="checkLength(password) ? 'success' : 'medium'">
-                        </ion-icon>
-                        <ion-label class="ion-padding-start">8 characters</ion-label>
-                    </ion-item>
-                    <ion-item>
-                        <ion-icon [name]="checkUpperCase(password) ? 'checkmark-circle' : 'close-circle'"
-                                    [color]="checkUpperCase(password) ? 'success' : 'medium'">
-                        </ion-icon>
-                        <ion-label class="ion-padding-start">One uppercase letter</ion-label>
-                    </ion-item>
-                    <ion-item>
-                        <ion-icon [name]="checkLowerCase(password) ? 'checkmark-circle' : 'close-circle'"
-                                    [color]="checkLowerCase(password) ? 'success' : 'medium'">
-                        </ion-icon>
-                        <ion-label class="ion-padding-start">One lowercase letter</ion-label>
-                    </ion-item>
-                    <ion-item>
-                        <ion-icon [name]="checkTwoNumbers(password) ? 'checkmark-circle' : 'close-circle'"
-                                    [color]="checkTwoNumbers(password) ? 'success' : 'medium'">
-                        </ion-icon>
-                        <ion-label class="ion-padding-start">Two numbers</ion-label>
-                    </ion-item>
-                    <ion-item>
-                        <ion-icon [name]="checkSpecialChar(password) ? 'checkmark-circle' : 'close-circle'"
-                                    [color]="checkSpecialChar(password) ? 'success' : 'medium'">
-                        </ion-icon>
-                        <ion-label class="ion-padding-start">One special character (!&#64;#$%^&*.)</ion-label>
-                    </ion-item>
-                </ion-list>
-            </div>
-        </ion-note>
+        <div class="requirements-list">
+            <p class="requirements-title">Password must contain at least:</p>
+            <ion-list lines="none">
+                <ion-item>
+                    <ion-icon [name]="checkLength(password?.value) ? 'checkmark-circle' : 'close-circle'" 
+                                [color]="checkLength(password?.value) ? 'success' : 'medium'">
+                    </ion-icon>
+                    <ion-label class="ion-padding-start">8 characters</ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-icon [name]="checkUpperCase(password?.value) ? 'checkmark-circle' : 'close-circle'"
+                                [color]="checkUpperCase(password?.value) ? 'success' : 'medium'">
+                    </ion-icon>
+                    <ion-label class="ion-padding-start">One uppercase letter</ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-icon [name]="checkLowerCase(password?.value) ? 'checkmark-circle' : 'close-circle'"
+                                [color]="checkLowerCase(password?.value) ? 'success' : 'medium'">
+                    </ion-icon>
+                    <ion-label class="ion-padding-start">One lowercase letter</ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-icon [name]="checkTwoNumbers(password?.value) ? 'checkmark-circle' : 'close-circle'"
+                                [color]="checkTwoNumbers(password?.value) ? 'success' : 'medium'">
+                    </ion-icon>
+                    <ion-label class="ion-padding-start">Two numbers</ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-icon [name]="checkSpecialChar(password?.value) ? 'checkmark-circle' : 'close-circle'"
+                                [color]="checkSpecialChar(password?.value) ? 'success' : 'medium'">
+                    </ion-icon>
+                    <ion-label class="ion-padding-start">One special character (!&#64;#$%^&*.)</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
 
         <div class="error-message" *ngIf="authError">
         {{ authError }}
