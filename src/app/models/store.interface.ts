@@ -8,5 +8,6 @@ export interface Store {
       lng: number;
     };
     openingHours?: string[];
+    isOpen?: boolean;
     rating?: number;
 }

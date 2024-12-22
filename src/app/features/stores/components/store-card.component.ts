@@ -14,19 +14,30 @@ import { Store } from '../../../models/store.interface';
           <p><strong>Opening Hours:</strong></p>
           <p *ngFor="let hours of store.openingHours">{{ hours }}</p>
         </div>
-        <div *ngIf="store.rating" class="rating">
-          <ion-icon name="star" color="warning"></ion-icon>
-          <span>{{ store.rating }} / 5</span>
-        </div>
-        <p class="distance-text">{{ store.distance }} km away</p>
+        <ion-row class="ion-align-items-end">
+          <ion-col size="6">
+            <div *ngIf="store.rating" class="rating">
+              <ion-icon name="star" color="warning"></ion-icon>
+              <span>{{ store.rating }} / 5</span>
+            </div>
+          </ion-col>
+          <ion-col size="6" class="ion-text-end">
+            <p class="distance-text">{{ store.distance }} km away</p>
+          </ion-col>
+        </ion-row>
       </ion-card-content>
       <ion-footer>
         <ion-row>
-          <ion-col>
+          <ion-col size="6">
             <ion-button fill="clear" (click)="navigate.emit(store)">
               <ion-icon slot="start" name="navigate"></ion-icon>
               Navigate
             </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <div class="status-badge" [class.open]="store.isOpen">
+              {{ store.isOpen ? 'Open' : 'Closed' }}
+            </div>
           </ion-col>
         </ion-row>
       </ion-footer>
@@ -46,6 +57,29 @@ import { Store } from '../../../models/store.interface';
       margin-left: 4px;
       color: var(--ion-color-medium);
       font-size: 0.9em;
+    }
+    .status-badge {
+      display: inline-block;
+      margin-left: auto;
+      margin-right: 8px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.8em;
+      font-weight: bold;
+      margin-bottom: 0;
+      background-color: var(--ion-color-danger);
+      color: white;
+    }
+    .status-badge.open {
+      background-color: var(--ion-color-success);
+    }
+    ion-footer ion-row {
+      align-items: center;
+      padding: 8px;
+    }
+    ion-footer ion-col {
+      display: flex;
+      align-items: center;
     }
   `]
 })
